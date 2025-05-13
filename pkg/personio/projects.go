@@ -13,6 +13,13 @@ type Project struct {
 	} `json:"attributes"`
 }
 
+func (client *Client) GetProjects() ([]Project, error) {
+	err := client.cacheProjects()
+	if err != nil {
+		return nil, err
+	}
+	return client.projectCache, nil
+}
 func (client *Client) GetProjectID(name string) (int, error) {
 	err := client.cacheProjects()
 	if err != nil {
